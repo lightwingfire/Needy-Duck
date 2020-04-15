@@ -1,5 +1,5 @@
 package game;
-
+//Program by Jakob Coughlan
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
