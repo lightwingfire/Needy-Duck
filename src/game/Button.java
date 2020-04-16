@@ -97,7 +97,7 @@ public class Button implements MouseListener {
     public void setLocation(int x1, int y1){
         this.x = x1;
         this.y = y1;
-        System.out.println(this.x+" "+this.y);
+        //System.out.println(this.x+" "+this.y);
     }
     public int getX(){
         return x;
@@ -123,7 +123,7 @@ public class Button implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        /*
         if((e.getX()>x&&e.getX()<(x+sizeX)&&e.getY()>y&&e.getY()<(y+sizeY))){
             this.e = e;
             if(click!=null) {
@@ -157,6 +157,8 @@ public class Button implements MouseListener {
 
 
         }
+
+         */
     }
 
     @Override
@@ -164,16 +166,53 @@ public class Button implements MouseListener {
 
         //if(e.getX()>x&&e.getX()<(x+128)&&e.getY()>y&&e.getY()<(y+64)){
             //x=e.getX()+(x-e.getX());
-            //System.out.println("Test");
+            //System.out.println("Test2");
             //click.setCurrentFrame(1);
         //}
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        //if(e.getX()>x&&e.getX()<(x+128)&&e.getY()>y&&e.getY()<(y+64)){
-            //System.out.println("Test");
+        /*
+        if(e.getX()>x&&e.getX()<(x+128)&&e.getY()>y&&e.getY()<(y+64)) {
+            System.out.println("Test");
             //click.setCurrentFrame(0);
+        }
+
+         */
+        if((e.getX()>x&&e.getX()<(x+sizeX)&&e.getY()>y&&e.getY()<(y+sizeY))){
+            this.e = e;
+            if(click!=null) {
+                click.loop(2);
+                click.start();
+            }
+            System.out.println(method);
+            Class c = obj.getClass();
+            Method methods = null;
+            try {
+                if(num ==25) {
+                    methods = c.getDeclaredMethod(method);
+                }else {
+                    methods = c.getDeclaredMethod(method, Integer.class);
+                }
+            } catch (NoSuchMethodException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                if(num ==25) {
+                    methods.invoke(obj);
+                }else{
+                    methods.invoke(obj,num);
+                }
+
+            } catch (IllegalAccessException ex) {
+                ex.printStackTrace();
+            } catch (InvocationTargetException ex) {
+                ex.printStackTrace();
+            }
+
+
+        }
     }
 
     @Override

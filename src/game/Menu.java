@@ -23,9 +23,14 @@ public class Menu {
         buttonNeedy = new Button(24,461,128,64, "needyButton", this, "needyButton",this.game);
 
         buttonReset = new Button(384,461,128,64,"playButton",this,"resetButton",this.game);
+
+        buttonContinue.disable();
+        buttonRelaxed.disable();
+        buttonNormal.disable();
+        buttonNeedy.disable();
         buttonReset.disable();
 
-
+        System.out.println("menu");
 
     }
     public void tick(){

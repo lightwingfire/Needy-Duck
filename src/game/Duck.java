@@ -83,13 +83,6 @@ public class Duck implements Serializable {
         isDead = false;
         System.out.println("I am a new duck");
 
-        buttonSleep = new Button(0,576,128,64,"sleepButton",this,"trySleep",game);
-        buttonClean = new Button(128,576,128,64,"cleanButton",this,"tryClean",game);
-        buttonFeed = new Button(256,576,128,64,"feedButton",this,"tryEat",game);
-        buttonPlay= new Button(384,576,128,64,"playButton",this,"tryPlay",game);
-        buttonPotty= new Button(513,576,128,64,"pottyButton",this,"tryPotty",game);
-        buttonWaddle = new Button(5,299,635,576,null,this,"tryWaddle",game);
-
         this.drowseyDecay = drowseyDecay;
         ticksTillNextDrowsey = drowseyDecay;
         drowsy = rand(7,10);
@@ -124,24 +117,13 @@ public class Duck implements Serializable {
         ticksWaddle=60;
         isWaddling = false;
 
-        eye = new Eyes(games);
-        emote = new Emotes(games);
-        mouth = new Mouth(games);
-        body = new Body(games);
-        arms = new Arms(games);
-        feet = new Feet(games);
-
-        duckGame = new DuckGames(this,games);
-        sound = new AudioPlayer();
-
+        loadTransientObjects(games);
     }
     public Duck(Main game){
         games = game;
     }
     public void loadTransientObjects(Main games){
-        //x=0;
-        //y=0;
-        //games = game;
+
         eye = new Eyes(games);
         emote = new Emotes(games);
         mouth = new Mouth(games);
@@ -203,8 +185,10 @@ public class Duck implements Serializable {
     public void tryPlay(){
         if(!isPlaying){
             isPlaying = true;
+            duckGame.displayButtons();
         }else{
             isPlaying = false;
+            duckGame.gameButtonHide();
         }
 
 
@@ -231,6 +215,12 @@ public class Duck implements Serializable {
             return true;
         }
         return false;
+    }
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
     }
 
     private void sleepTick(){
@@ -370,7 +360,7 @@ public class Duck implements Serializable {
     }
     private void playTick(){
         if(isPlaying){
-            duckGame.displayButtons();
+
         }
 /*tickstick--;
         if(tickstick<0){
