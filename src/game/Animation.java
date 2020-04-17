@@ -96,6 +96,14 @@ public class Animation {
         currentFrame = c;
     }
 
+    public void setFrameDelay(int t){
+        if(frameDelay+t>0){
+            frameDelay = frameDelay+t;
+            System.out.println(frameDelay);
+        }
+
+    }
+
     private void addFrame(BufferedImage frame, int duration) {
         if (duration <= 0) {
             System.err.println("Invalid duration: " + duration);

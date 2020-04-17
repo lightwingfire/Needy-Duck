@@ -45,10 +45,15 @@ public class Button implements MouseListener {
         game.addMouseListener(this);
         String path = "button//";
         if(file !=null) {
+            setAnimation(file,1,0,3);
+        }
+            /*
             button = new Sprite(path + name);
-            BufferedImage[] buttons = {button.getSprite(0, 0, 64, "Button"), button.getSprite(1, 0, 64, "Button")};
+            BufferedImage[] buttons = {button.getSprite(0, 0, sizeX, sizeY), button.getSprite(1, 0, sizeX, sizeY)};
             click = new Animation(buttons, 3);
         }
+
+         */
 
     }
     public Button(int x, int y, int sizeX,int sizeY, String file,Object obj, String method,int num,Main game){
@@ -68,6 +73,34 @@ public class Button implements MouseListener {
         BufferedImage[] buttons = {button.getSprite(0,0,64),button.getSprite(0,0,64)};
         click = new Animation(buttons,10);
 
+    }
+
+    public void setAnimation(String name,int maxXGrid, int maxYGrid,int frameDelay){
+        BufferedImage[] buttons;
+        if(maxXGrid*maxYGrid==0){
+            buttons = new BufferedImage[maxXGrid+1];
+        }else {
+            buttons = new BufferedImage[maxXGrid * maxYGrid+1];
+        }
+        int frame = 0;
+        String path = "button//";
+        button = new Sprite(path+name);
+        for(int y = 0;y<=maxYGrid;++y){
+            for(int x =0;x<=maxXGrid;++x){
+                //System.out.println(x+" "+y);
+                buttons[frame]=button.getSprite(x, y, sizeX, sizeY);
+                frame++;
+            }
+        }
+        click = new Animation(buttons,frameDelay);
+        //click.start();
+    }
+    public void animateContiniously(boolean animationContiniously){
+        if(animationContiniously){
+            click.start();
+        }else{
+            click.stop();
+        }
     }
 
     public void tick(){
@@ -183,6 +216,7 @@ public class Button implements MouseListener {
         if((e.getX()>x&&e.getX()<(x+sizeX)&&e.getY()>y&&e.getY()<(y+sizeY))){
             this.e = e;
             if(click!=null) {
+                //click.setFrameDelay(-5);
                 click.loop(2);
                 click.start();
             }

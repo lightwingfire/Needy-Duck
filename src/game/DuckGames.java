@@ -24,9 +24,11 @@ public class DuckGames {
     public DuckGames(Duck duck,Main game){
         this.game = game;
         this.duck = duck;
-        buttonBounce= new Button(384,576,128,64,"playButton",this,"bounceBall",this.game);
+        buttonBounce= new Button(384,576,128,64,"relaxButton",this,"bounceBall",this.game);
         buttonBounce.disable();
-        ball = new Button (24,260,64,64,"contiButton",this,"bounceBallHit",this.game);
+        ball = new Button (24,260,64,64,"relaxButton",this,"bounceBallHit",this.game);
+        ball.setAnimation("bounceBall",7,0,30);
+
         ball.disable();
     }
     public void displayButtons(){
@@ -70,6 +72,7 @@ public class DuckGames {
     }
     public void bounceBallGameTick(){
         if(vertexY !=-640) {
+            ball.animateContiniously(true);
             int bx = 0;
             if (direction) {
                 bx = ball.getX() + 1;
@@ -82,6 +85,9 @@ public class DuckGames {
             if(ball.getX()>duck.getX()&&ball.getX()<duck.getX()+154&&ball.getY()<duck.getY()&&ball.getY()>duck.getY()-120){
                 bounceBallHit();
                 System.out.println("duck Volley");
+            }
+            if(ball.getY()>640){//this ends the game
+                duck.tryPlay();
             }
         }
     }

@@ -69,7 +69,7 @@ public class Sprite {
             spriteSheet = loadSprite("AnimationSpriteSheet");
         }
 
-        return spriteSheet.getSubimage(xGrid , yGrid , xGrid2, yGrid2);
+        return spriteSheet.getSubimage(xGrid*xGrid2 , yGrid *yGrid2 , xGrid2, yGrid2);
     }
 
 }
