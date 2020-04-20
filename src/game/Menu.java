@@ -17,12 +17,19 @@ public class Menu {
     private int duckChoice;
     public Menu(Main game){
         this.game = game;
-        buttonContinue = new Button (24,260,128,64,"contiButton",this,"contiButton",this.game);
-        buttonRelaxed = new Button(24,327,128,64, "relaxButton", this, "relaxedButton",this.game);
-        buttonNormal = new Button(24,394,128,64, "normalButton", this, "normalButton",this.game);
-        buttonNeedy = new Button(24,461,128,64, "needyButton", this, "needyButton",this.game);
+        buttonContinue = new Button (24,260,128,64,"contiButton",this.game);
+        buttonRelaxed = new Button(24,327,128,64, "relaxButton", this.game);
+        buttonNormal = new Button(24,394,128,64, "normalButton", this.game);
+        buttonNeedy = new Button(24,461,128,64, "needyButton", this.game);
 
-        buttonReset = new Button(384,461,128,64,"playButton",this,"resetButton",this.game);
+        buttonContinue.setFunction(this,"menuButton",3);
+        buttonRelaxed.setFunction(this,"menuButton",0);
+        buttonNormal.setFunction(this,"menuButton",1);
+        buttonNeedy.setFunction(this,"menuButton",2);
+
+        buttonReset = new Button(384,461,128,64,"playButton",this.game);
+
+        buttonReset.setFunction(this,"resetButton");
 
         buttonContinue.disable();
         buttonRelaxed.disable();
@@ -125,23 +132,11 @@ public class Menu {
 
     }
 
-    public void contiButton(){
-        duckChoice = 3;
+    public void menuButton(Integer duckChoice){
+        this.duckChoice = duckChoice;
         fade.fade();
     }
-    public void relaxedButton(){
-        duckChoice = 0;
-        fade.fade();
 
-    }
-    public void normalButton(){
-        duckChoice = 1;
-        fade.fade();
-    }
-    public void needyButton(){
-        duckChoice = 2;
-        fade.fade();
-    }
     public void resetButton(){
         buttonReset.disable();
         mainMenu();

@@ -132,12 +132,20 @@ public class Duck implements Serializable {
         feet = new Feet(games);
         duckGame = new DuckGames(this,games);
         sound = new AudioPlayer();
-        buttonSleep = new Button(0,576,128,64,"sleepButton",this,"trySleep",games);
-        buttonClean = new Button(128,576,128,64,"cleanButton",this,"tryClean",games);
-        buttonFeed = new Button(256,576,128,64,"feedButton",this,"tryEat",games);
-        buttonPlay= new Button(384,576,128,64,"playButton",this,"tryPlay",games);
-        buttonPotty= new Button(513,576,128,64,"pottyButton",this,"tryPotty",games);
-        buttonWaddle = new Button(0,299,640,640,null,this,"tryWaddle",games);
+        buttonSleep = new Button(0,576,128,64,"sleepButton",games);
+        buttonClean = new Button(128,576,128,64,"cleanButton",games);
+        buttonFeed = new Button(256,576,128,64,"feedButton",games);
+        buttonPlay= new Button(384,576,128,64,"playButton",games);
+        buttonPotty= new Button(513,576,128,64,"pottyButton",games);
+        buttonWaddle = new Button(0,320,640,640,null,games);
+
+        buttonSleep.setFunction(this,"trySleep");
+        buttonClean.setFunction(this,"tryClean");
+        buttonFeed.setFunction(this,"tryEat");
+        buttonPlay.setFunction(this,"tryPlay");
+        buttonPotty.setFunction(this,"tryPotty");
+        buttonWaddle.setFunction(this,"tryWaddle");
+
         poops = new Button[9];
 
     }
@@ -203,6 +211,11 @@ public class Duck implements Serializable {
 
     }
 
+    public void addPlay(int addition){
+        System.out.println("adding "+addition+" to play");
+        play += addition;
+    }
+
     public void cleanPoo(Integer num){
         poops[num].disable();
         poops[num] = null;
@@ -216,12 +229,14 @@ public class Duck implements Serializable {
         }
         return false;
     }
+
     public int getX(){
         return x;
     }
     public int getY(){
         return y;
     }
+
 
     private void sleepTick(){
         if(isSleeping&&drowsy>6){
@@ -280,7 +295,7 @@ public class Duck implements Serializable {
             ticksTillNextHunger = 70;//relationship might effect
             hunger++;
             eatCycle++;
-            //sound.quack();//TEST
+            sound.quack();//TEST
             System.out.println("eating "+eatCycle);
         }
         if(eatCycle>5){//relationship might effect
@@ -320,10 +335,10 @@ public class Duck implements Serializable {
             isCleaning = false;
             System.out.println("Done Cleaning");
         }
-        if(cleanliness<1){
+        if(cleanliness<3){
             health--;
         }
-        if(cleanliness<-5){
+        if(cleanliness<1){
             health--;
         }
     }
@@ -343,7 +358,8 @@ public class Duck implements Serializable {
             System.out.println("Pooping");
         }
         if(potty<1){
-            poops[poo] = new Button(rand(x-70,x+70),rand(y+50,y+100),64,64,"poo",this,"cleanPoo",poo,games);
+            poops[poo] = new Button(rand(x-70,x+70),rand(y+50,y+100),64,64,"poo",games);
+            poops[poo].setFunction(this,"cleanPoo",poo);
             poo++;
             isEmbarrassed = true;
             ticksTillNextWaddle = 0;
@@ -361,32 +377,22 @@ public class Duck implements Serializable {
     private void playTick(){
         if(isPlaying){
 
+        }else {
+            ticksTillNextPlay--;
+            if(ticksTillNextPlay<0){
+                ticksTillNextPlay=playDecay;
+                play--;
+            }
+            if(play<1){
+                health--;
+            }
         }
-/*tickstick--;
-        if(tickstick<0){
-            //y = (x-200)^2-200;
-            int r = 0 ;
-            if(direction){
-                r=buttonContinue.getX()+1;
-            }
-            else{
-                r = buttonContinue.getX()-1;
-            }
-            if(buttonContinue.getX()<0){
-                direction = true;
-            }
-            if(buttonContinue.getX()>400){
-                direction = false;
-            }
-            buttonContinue.setLocation(r,
-                    ((buttonContinue.getX()-200)*(buttonContinue.getX()-200))/100+200);
-            //System.out.println(this.x+" "+this.y);
-            tickstick = 60;
-        }*/
+
     }
     private void waddleTick(){
         if(!(isSleeping||isEating||isPottying||isCleaning)) {
             ticksTillNextWaddle--;
+            boolean m = false;
             if (ticksTillNextWaddle < 0) {
                 if(mouseX!=-10){//this is the code for the custom selection of where the duck will go
                     destinX = mouseX-80;
@@ -395,6 +401,7 @@ public class Duck implements Serializable {
                     nextY = (destinY - y) / 30;
                     mouseX = -10;
                     mouseY = -10;
+                    m = true;
                 }else {
                     do {//this is the code for it randomly waddling around
                         destinX = rand(130, 470);
@@ -417,12 +424,12 @@ public class Duck implements Serializable {
                     if (destinX != x && destinX != x + 1 && destinX != x - 1 && destinX != x + 2 && destinX != x - 2 && destinX != x + 3 && destinX != x - 3 && destinX != x + 4 && destinX != x - 4 && destinX != x + 5 && destinX != x - 5) {
                         boolean waddleX = true;
                         boolean waddleY = true;
-                        if (x+80 >= 0 && x+80 <= 640) {
+                        if (m||(x+80 >= 0 && x+80 <= 720)) {
                             x = x + nextX;
                         } else {
                             waddleX = false;
                         }
-                        if (y+170 >= 298 && y+170 <= 576) {
+                        if (m||(y+170 >= 298 && y+170 <= 720)) {
                             y = y + nextY;
                         } else {
                             waddleY = false;

@@ -123,8 +123,8 @@ public class Main extends Canvas implements Runnable{
         }else {
             window.setTitle("Needy Duckling");
             background.tick();
-            menu.tick();
             duck.tick();
+            menu.tick();
         }
 
 

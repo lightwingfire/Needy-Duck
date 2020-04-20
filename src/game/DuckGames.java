@@ -16,6 +16,8 @@ public class DuckGames {
     private int buttonScroll;
     private int gameSelect;
 
+    private double fun;
+
     private int bounceBallTick;
     private boolean direction;
     private int vertexX;
@@ -24,10 +26,12 @@ public class DuckGames {
     public DuckGames(Duck duck,Main game){
         this.game = game;
         this.duck = duck;
-        buttonBounce= new Button(384,576,128,64,"relaxButton",this,"bounceBall",this.game);
+        buttonBounce= new Button(384,576,64,64,"ballButton",this.game);
+        buttonBounce.setFunction(this,"bounceBall");
         buttonBounce.disable();
-        ball = new Button (24,260,64,64,"relaxButton",this,"bounceBallHit",this.game);
-        ball.setAnimation("bounceBall",7,0,30);
+        ball = new Button (24,260,64,64,"relaxButton",this.game);
+        ball.setFunction(this,"bounceBallHit");
+        ball.setAnimation("bounceBall",7,0,6);
 
         ball.disable();
     }
@@ -36,6 +40,7 @@ public class DuckGames {
             buttonBounce.enable();
             buttonScroll = 5;
             gameSelect = 0;
+            fun = 0.0;
     }
     public void buttonScroll(){//maybe want to add a bounce to the button, idk
         if (buttonScroll !=0) {
@@ -75,19 +80,25 @@ public class DuckGames {
             ball.animateContiniously(true);
             int bx = 0;
             if (direction) {
-                bx = ball.getX() + 1;
+                bx = ball.getX() + 2;
             } else {
-                bx = ball.getX() - 1;
+                bx = ball.getX() - 2;
             }
             //y = a(x-h)^2+k
             //vertex of a parabola is (h,k)
-            ball.setLocation(bx,((ball.getX() - vertexX) * (ball.getX() - vertexX)) / 100 + vertexY);//y
+            ball.setLocation(bx,((ball.getX() - vertexX) * (ball.getX() - vertexX)) / 100 + vertexY);
             if(ball.getX()>duck.getX()&&ball.getX()<duck.getX()+154&&ball.getY()<duck.getY()&&ball.getY()>duck.getY()-120){
                 bounceBallHit();
                 System.out.println("duck Volley");
+                fun+=0.5;
             }
             if(ball.getY()>640){//this ends the game
                 duck.tryPlay();
+                duck.addPlay((int)fun);
+            }
+            if(ball.getX()<0||ball.getX()>576){
+                //bounceBallHit();
+                direction = !direction;
             }
         }
     }
@@ -95,11 +106,11 @@ public class DuckGames {
         if(direction){//if it was going right
             direction = false;
             vertexX = ball.getX()-150;
-            ball.setLocation(ball.getX()+20,ball.getY());
+            //ball.setLocation(ball.getX()+30,ball.getY());
         }else{//if it was going left
             direction = true;
             vertexX = ball.getX()+150;
-            ball.setLocation(ball.getX()-20,ball.getY());
+            //ball.setLocation(ball.getX()-30,ball.getY());
         }
         vertexY = ball.getY()-300;
 
