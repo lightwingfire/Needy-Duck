@@ -3,6 +3,8 @@ package game;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class Audio {
     AudioInputStream audioInputStream;
@@ -35,7 +37,9 @@ public class Audio {
     }
     private void getAudio(){
         try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File(filePath+"\\res\\sound\\"+file+".wav"));
+            FileSystem fs = FileSystems.getDefault();
+            String sep = fs.getSeparator();
+            audioInputStream = AudioSystem.getAudioInputStream(new File(filePath+sep+"res"+sep+"sound"+sep+file+".wav"));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

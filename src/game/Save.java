@@ -3,6 +3,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.*;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,9 +32,11 @@ public class Save {
                 //game.stop();
             }
         };
+        FileSystem fs = FileSystems.getDefault();
+        String sep = fs.getSeparator();
         game.window.addWindowListener(windowListener);
-        mySave = new File("").getAbsolutePath()+"\\res\\save.txt";
-        filePath = new File("").getAbsolutePath()+"\\res\\deaths.txt";
+        mySave = new File("").getAbsolutePath()+sep+"res"+sep+"save.txt";
+        filePath = new File("").getAbsolutePath()+sep+"res"+sep+"deaths.txt";
         //read();
 
 

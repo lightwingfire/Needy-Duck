@@ -2,6 +2,8 @@ package game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class Arms {
 
@@ -16,7 +18,9 @@ public class Arms {
 
     public Arms(Main game){
         this.game = game;
-        String file = "arm//";
+        FileSystem fs = FileSystems.getDefault();
+        String sep = fs.getSeparator();
+        String file = "arm"+sep;
 
         /*
     private Sprite ;

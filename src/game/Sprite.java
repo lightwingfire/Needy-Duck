@@ -3,6 +3,8 @@ package game;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
@@ -10,13 +12,14 @@ public class Sprite {
 
     private static BufferedImage spriteSheet;
     private static String filePath;
-    //`private String filePath;
     private static final int TILE_SIZE = 32;
     public Sprite(String file){
         try {
             filePath = new File("").getAbsolutePath();
             //System.out.println(filePath);
-            spriteSheet = ImageIO.read(new File(filePath+"\\res\\"+file+".png"));//"res/" + file + ".png"
+            FileSystem fs = FileSystems.getDefault();
+            String sep = fs.getSeparator();
+            spriteSheet = ImageIO.read(new File(filePath+sep+"res"+sep+file+".png"));//"res/" + file + ".png"
         } catch (IOException e) {
             //System.out.println("IT FUCKED");
             e.printStackTrace();
@@ -29,7 +32,9 @@ public class Sprite {
         BufferedImage sprite = null;
 
         try {
-            sprite = ImageIO.read(new File(filePath+"\\res\\"+file+".png"));//"res/" + file + ".png"
+            FileSystem fs = FileSystems.getDefault();
+            String sep = fs.getSeparator();
+            sprite = ImageIO.read(new File(filePath+sep+"res"+sep+file+".png"));//"res/" + file + ".png"
         } catch (IOException e) {
             //System.out.println("IT FUCKED");
             e.printStackTrace();

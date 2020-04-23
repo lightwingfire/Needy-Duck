@@ -2,6 +2,8 @@ package game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class Feet {
 
@@ -19,7 +21,9 @@ public class Feet {
 
     public Feet(Main game){
         this.game=game;
-        String file = "feet//";
+        FileSystem fs = FileSystems.getDefault();
+        String sep = fs.getSeparator();
+        String file = "feet"+sep;
 
         Sprite defa = new Sprite(file + "standing");
         BufferedImage[] defau = {defa.getSprite(0,0,160), defa.getSprite(0,0,160)};

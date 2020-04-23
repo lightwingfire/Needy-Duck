@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class Main extends Canvas implements Runnable{
 
@@ -32,7 +34,9 @@ public class Main extends Canvas implements Runnable{
         game.setMinimumSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
 
         String filePath = new File("").getAbsolutePath();
-        ImageIcon defaultIcon = new ImageIcon(filePath+"\\res\\icon.png");
+        FileSystem fs = FileSystems.getDefault();
+        String sep = fs.getSeparator();
+        ImageIcon defaultIcon = new ImageIcon(filePath+sep+"res"+sep+"icon.png");
 
         window = new JFrame(game.TITLE);//creates window
         window.setIconImage(defaultIcon.getImage());

@@ -3,6 +3,8 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class Emotes {
     private Main game;
@@ -18,7 +20,9 @@ public class Emotes {
 
     public Emotes(Main game){
         this.game = game;
-        String file = "emote//";
+        FileSystem fs = FileSystems.getDefault();
+        String sep = fs.getSeparator();
+        String file = "emote"+sep;
         Sprite heart = new Sprite(file+"hearts");
         BufferedImage[] hearts = {heart.getSprite(0,0 ), heart.getSprite(1, 0), heart.getSprite(2, 0), heart.getSprite(3, 0)};
         heartAnimation = new Animation(hearts, 20);

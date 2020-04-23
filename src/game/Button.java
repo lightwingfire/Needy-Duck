@@ -8,6 +8,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 //I made my own button class because I wanted better control over the buttons than jframe offers
 //(and I didn't understand the documentation at first so this was easier and turns out
@@ -109,7 +111,9 @@ public class Button implements MouseListener, MouseMotionListener {
             buttons = new BufferedImage[width * height+1];
         }
         int frame = 0;
-        String path = "button//";
+        FileSystem fs = FileSystems.getDefault();
+        String sep = fs.getSeparator();
+        String path = "button"+sep;
         button = new Sprite(path+name);
         for(int y = 0;y<=height;++y){
             for(int x =0;x<=width;++x){

@@ -2,6 +2,8 @@ package game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class Background {
 
@@ -23,13 +25,17 @@ public class Background {
     private Animation menuBackgroundAnimation2;
     private Animation fadeAnimation;
 
-    private Sprite mn = new Sprite("background//menuBackground1");
+    private FileSystem fs = FileSystems.getDefault();
+    private String sep = fs.getSeparator();
+    String file = "background"+sep;
+
+    private Sprite mn = new Sprite(file+"menuBackground1");
     private BufferedImage[] menu = {mn.getSprite(0,0,640),mn.getSprite(0,0,640)};
-    private Sprite mn2 = new Sprite("background//menuBackground2");
+    private Sprite mn2 = new Sprite(file+"menuBackground2");
     private BufferedImage[] menu2 = {mn2.getSprite(0,0,640),mn2.getSprite(0,0,640)};
-    private Sprite fa = new Sprite("background//fade");
+    private Sprite fa = new Sprite(file+"fade");
     private BufferedImage[] fad = {fa.getSprite(0,0,1920,640),fa.getSprite(0,0,1920,640)};
-    private Sprite bg = new Sprite("background//background");
+    private Sprite bg = new Sprite(file+"background");
     private BufferedImage[] back = {bg.getSprite(0,0,640),bg.getSprite(0,0,640)};
 
 
@@ -38,7 +44,7 @@ public class Background {
 
     public Background(Main game){
         this.game = game;
-        String file = "background//";
+
         fadeX = -1320;
         ticksTillNight = 100;
         darkness = 0;

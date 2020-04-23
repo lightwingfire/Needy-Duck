@@ -2,6 +2,8 @@ package game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class Eyes {
 
@@ -16,7 +18,9 @@ public class Eyes {
     private Main game;
     public Eyes(Main game){
         this.game = game;
-        String file = "eye//";
+        FileSystem fs = FileSystems.getDefault();
+        String sep = fs.getSeparator();
+        String file = "eye"+sep;
 
         readingShift = 0;
 

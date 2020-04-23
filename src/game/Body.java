@@ -2,6 +2,8 @@ package game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
 public class Body {
 
@@ -26,7 +28,9 @@ public class Body {
 
     public Body(Main game){
         this.game = game;
-        String file = "body//";
+        FileSystem fs = FileSystems.getDefault();
+        String sep = fs.getSeparator();
+        String file = "body"+sep;
 
         Sprite toper = new Sprite(file + "bodyupperhalf");
         BufferedImage[] tops = {toper.getSprite(0,0,154)};
