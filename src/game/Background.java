@@ -116,14 +116,6 @@ public class Background {
         if(bgAnimation!=null) {
             bgAnimation.update();
         }
-        /*ticksTillNight--;
-        if(ticksTillNight<0){
-            darkness+=0.1;
-            if(!(bgAnimation==null)) {
-                bgAnimation.setDarkness(.001);
-            }
-            ticksTillNight = 60;
-        }*/
     }
     public void render(Graphics g){
         if(!(bgAnimation==null)) {

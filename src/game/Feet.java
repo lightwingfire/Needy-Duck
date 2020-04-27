@@ -31,7 +31,7 @@ public class Feet {
 
         Sprite wa = new Sprite (file+"walking");
         BufferedImage[] wad = {wa.getSprite(0,0,160),wa.getSprite(1,0,160)};
-        waddling = new Animation(wad,30);
+        waddling = new Animation(wad,5);
 
         Sprite sle = new Sprite(file + "sleeping");
         BufferedImage[] slee = {sle.getSprite(0,0,160), sle.getSprite(0,0,160)};

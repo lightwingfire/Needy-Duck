@@ -53,7 +53,7 @@ public class Button implements MouseListener, MouseMotionListener {
         show=true;
         game.addMouseListener(this);
         if(file !=null) {
-            setAnimation(file,0,0,3);
+            setAnimation(file,1,0,3);
         }
 
 

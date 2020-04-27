@@ -10,8 +10,8 @@ import java.nio.file.FileSystems;
 
 public class Main extends Canvas implements Runnable{
 
-    public static final int WIDTH = 320;
-    public static final int HEIGHT = 320;
+    public static final int WIDTH = 315;
+    public static final int HEIGHT = 315;
     public static final int SCALE = 2;
     public static final String TITLE = "Needy Duckling";
 

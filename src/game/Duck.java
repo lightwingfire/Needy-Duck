@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 public class Duck implements Serializable {
 
     private int x;
@@ -397,8 +399,13 @@ public class Duck implements Serializable {
                 if(mouseX!=-10){//this is the code for the custom selection of where the duck will go
                     destinX = mouseX-80;
                     destinY = mouseY-100;
+                    int prevX = nextX;
+                    int prevY = nextY;
                     nextX = (destinX - x) / 30;//this is my slope so the duck can move at angles, it will move to its location in 30 tick intervals
                     nextY = (destinY - y) / 30;
+                    if(isWaddling&&abs(nextX)>3&&((((prevX^nextX)<0)||nextX<=2&&nextX>=-2)&&((prevY^nextY)<0||nextY<=2&&nextY>=-2))) {
+                        sound.skrt();
+                    }
                     mouseX = -10;
                     mouseY = -10;
                     m = true;
@@ -409,7 +416,7 @@ public class Duck implements Serializable {
                         nextX = (destinX - x) / 30;//this is my slope so the duck can move at angles, it will move to its location in 30 tick intervals
                         nextY = (destinY - y) / 30;
                         //System.out.println(nextX+" "+nextY);
-                    } while (Math.abs(nextX) < 3 && Math.abs(nextY) < 3);
+                    } while (abs(nextX) < 3 && abs(nextY) < 3);
                 }
                 ticksTillNextWaddle =600;// rand(700,2000);
                 System.out.println("@("+x+","+y+") going to ("+destinX+","+destinY+") at a rate of "+nextX+","+nextY);
@@ -436,7 +443,9 @@ public class Duck implements Serializable {
                         }
                         if (waddleX || waddleY) {//this prevents it from getting to the destination and just waddling in place
                             isWaddling = true;
+                            sound.footstep();
                         } else {
+
                             isWaddling = false;
                         }
                         //System.out.println(x + " " + y);
@@ -552,7 +561,7 @@ public class Duck implements Serializable {
                 emote.setZZZ();
             }
             else{
-                emote.setQuestion();
+                //emote.setQuestion();
                 //emote.setHearts();
             }
         }

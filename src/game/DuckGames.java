@@ -96,10 +96,12 @@ public class DuckGames {
                 duck.tryPlay();
                 duck.addPlay((int)fun);
             }
+            /*
             if(ball.getX()<0||ball.getX()>576){
                 //bounceBallHit();
                 direction = !direction;
             }
+            */
         }
     }
     public void bounceBallHit(){
@@ -133,7 +135,7 @@ public class DuckGames {
         ball.render(g);
     }
     public void setArms(Arms arms){
-        arms.setSleep();
+        //arms.setSleep();
     }
 }
 

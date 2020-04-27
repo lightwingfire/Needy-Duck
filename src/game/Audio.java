@@ -32,7 +32,8 @@ public class Audio {
     }
 
     public void volume(double gain){//must be from 0.0-1.0
-        float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+        float dB = (float) (Math.log(0.10*gain) / Math.log(10.0) * 20.0);
+        //System.out.println(dB);
         gainControl.setValue(dB);
     }
     private void getAudio(){

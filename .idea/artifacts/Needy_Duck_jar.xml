@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Needy Duck:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Needy_Duck_jar</output-path>
+    <root id="archive" name="Needy Duck.jar">
+      <element id="module-output" name="Needy Duck" />
+    </root>
+  </artifact>
+</component>
